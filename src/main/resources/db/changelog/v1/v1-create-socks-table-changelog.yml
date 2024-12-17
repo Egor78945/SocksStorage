@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-1
+      author: ${LIQUIBASE_CHANGELOG_AUTHOR}
+      changes:
+        - createTable:
+            tableName: ${POSTGRESQL_DATABASE_TABLE_SOCKS}
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+                  autoIncrement: true
+              - column:
+                  name: color
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cotton_percent
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: count
+                  type: int
+                  constraints:
+                    nullable: false

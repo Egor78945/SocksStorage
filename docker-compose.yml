@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DATABASE}
+      POSTGRES_USER: ${POSTGRESQL_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+    ports:
+      - ${POSTGRESQL_SERVER_PORT}:${POSTGRESQL_SERVER_PORT}
+
+  app:
+    container_name: app
+    build: .
+    environment:
+      - POSTGRESQL_SERVER_PORT=${POSTGRESQL_SERVER_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      - POSTGRESQL_DATABASE_TABLE_SOCKS=${POSTGRESQL_DATABASE_TABLE_SOCKS}
+      - SERVER_PORT=${SERVER_PORT}
+      - LIQUIBASE_CHANGELOG_AUTHOR=${LIQUIBASE_CHANGELOG_AUTHOR}
+    depends_on:
+      - postgres
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}

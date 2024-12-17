@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: ../v1-create-socks-table-changelog.yml
+      relativeToChangelogFile: true

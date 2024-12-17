@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: SocksStorage
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:${POSTGRESQL_SERVER_PORT}/${POSTGRESQL_DATABASE}
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+  jpa:
+    database: postgresql
+    show-sql: true
+
+  data:
+    jdbc:
+      dialect: postgresql
+
+  liquibase:
+    change-log: db/changelog/main/main-changelog.yml
+
+server:
+  port: ${SERVER_PORT}
