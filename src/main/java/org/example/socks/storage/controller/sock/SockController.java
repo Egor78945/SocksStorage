@@ -28,4 +28,10 @@ public class SockController {
     public ResponseEntity<String> getCountByConstraints(@RequestParam(name = "color", defaultValue = "") String color, @RequestParam(name = "lessThan", defaultValue = Integer.MAX_VALUE+"") Integer lessThan, @RequestParam(name = "equal", defaultValue = "-1") Integer equal, @RequestParam(value = "moreThan", defaultValue = Integer.MIN_VALUE+"") Integer moreThan) {
         return ResponseEntity.ok(String.format("Socks count by selected constraints: %s", sockService.countByConstraints(color, lessThan, equal, moreThan)));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> changeSocks(@PathVariable("id") Long id, @RequestParam(name = "color", defaultValue = "") String color, @RequestParam(name = "cottonCount", defaultValue = "-1") Integer cottonCount, @RequestParam(value = "count", defaultValue = "-1") Long count){
+        sockService.updateSocks(id, color, cottonCount, count);
+        return ResponseEntity.ok("Socks has been updated.");
+    }
 }
