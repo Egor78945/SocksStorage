@@ -10,10 +10,6 @@ spring:
     database: postgresql
     show-sql: true
 
-  data:
-    jdbc:
-      dialect: postgresql
-
   liquibase:
     change-log: db/changelog/main/main-changelog.yml
 

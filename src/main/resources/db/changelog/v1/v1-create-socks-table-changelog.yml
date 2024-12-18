@@ -26,6 +26,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: count
-                  type: int
+                  type: bigint
                   constraints:
                     nullable: false
