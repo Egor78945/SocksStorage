@@ -1,5 +1,7 @@
 package org.example.socks.storage.service.excel;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -9,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.example.socks.storage.model.sock.dto.SockDTO;
 import org.example.socks.storage.service.poi.POIService;
 import org.example.socks.storage.service.sock.SockService;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +20,11 @@ import java.util.Iterator;
 
 @Service
 @RequiredArgsConstructor
+@Tag(name = "Excel file reader")
 public class SockExcelReader extends POIService {
     private final SockService sockService;
 
+    @Operation(description = "Reads an Excel file and saves the data as new socks.")
     public void readSheet(MultipartFile multipartFile) {
         try {
             XSSFWorkbook book = getBookFromExcelFile(multipartFile);

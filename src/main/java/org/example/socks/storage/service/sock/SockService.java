@@ -1,5 +1,7 @@
 package org.example.socks.storage.service.sock;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.socks.storage.model.sock.dto.SockDTO;
 import org.example.socks.storage.model.sock.entity.Sock;
@@ -10,9 +12,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Tag(name = "Sock service", description = "Provides business logic with socks.")
 public class SockService {
     private final SockRepository sockRepository;
 
+    @Operation(description = "Registers new socks or updates existing.")
     public Long incomeSock(SockDTO sockDTO) {
         if (sockDTO.getColor() == null || sockDTO.getColor().length() < 3 || sockDTO.getColor().length() > 100) {
             throw new RuntimeException("Unknown color.");
@@ -30,6 +34,7 @@ public class SockService {
         }
     }
 
+    @Operation(description = "Takes socks from storage.")
     public Long outcomeSock(SockDTO sockDTO) {
         Sock sock = sockRepository.findSockByColorAndCottonPercent(sockDTO.getColor(), sockDTO.getCottonPercent());
         if (sock == null) {
@@ -47,6 +52,7 @@ public class SockService {
 
     }
 
+    @Operation(description = "Returns the count of socks by constraints.")
     public Long countByConstraints(String color, Integer lessThan, Integer equal, Integer moreThan) {
         Optional<Long> count;
         if (!color.isEmpty()) {
@@ -67,6 +73,7 @@ public class SockService {
         return count.orElseThrow(() -> new RuntimeException("Socks with constraints like this is not found."));
     }
 
+    @Operation(description = "Update existing socks by details.")
     public void updateSocks(Long id, String color, Integer cottonPercent, Long count) {
         Sock sock = sockRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Socks with id %s is not found.", id)));
         if (count == 0) {
