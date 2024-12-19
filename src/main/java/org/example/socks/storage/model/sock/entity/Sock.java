@@ -19,6 +19,13 @@ public class Sock {
     @Column(name = "count")
     private Long count;
 
+    public Sock(Long id, String color, Integer cottonPercent, Long count) {
+        this.id = id;
+        this.color = color;
+        this.cottonPercent = cottonPercent;
+        this.count = count;
+    }
+
     public Sock(String color, Integer cottonPercent, Long count) {
         this.color = color;
         this.cottonPercent = cottonPercent;

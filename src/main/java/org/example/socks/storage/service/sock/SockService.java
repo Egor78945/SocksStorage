@@ -14,11 +14,11 @@ public class SockService {
     private final SockRepository sockRepository;
 
     public Long incomeSock(SockDTO sockDTO) {
-        if (sockDTO.getColor().length() < 3 || sockDTO.getColor().length() > 100) {
+        if (sockDTO.getColor() == null || sockDTO.getColor().length() < 3 || sockDTO.getColor().length() > 100) {
             throw new RuntimeException("Unknown color.");
-        } else if (sockDTO.getCottonPercent() < 0 || sockDTO.getCottonPercent() > 100) {
+        } else if (sockDTO.getCottonPercent() == null || sockDTO.getCottonPercent() < 0 || sockDTO.getCottonPercent() > 100) {
             throw new RuntimeException("Invalid cotton content. It must to be between 0 and 100.");
-        } else if (sockDTO.getCount() <= 0 || sockDTO.getCount() > 1_000_000) {
+        } else if (sockDTO.getCount() == null || sockDTO.getCount() <= 0 || sockDTO.getCount() > 1_000_000) {
             throw new RuntimeException("Invalid sock count or it too much.");
         } else {
             Sock sock = sockRepository.findSockByColorAndCottonPercent(sockDTO.getColor(), sockDTO.getCottonPercent());
@@ -34,7 +34,7 @@ public class SockService {
         Sock sock = sockRepository.findSockByColorAndCottonPercent(sockDTO.getColor(), sockDTO.getCottonPercent());
         if (sock == null) {
             throw new RuntimeException("Socks with parameter like this is not found.");
-        } else if (sock.getCount() < sockDTO.getCount()) {
+        } else if (sockDTO.getCount() == null || sock.getCount() < sockDTO.getCount()) {
             throw new RuntimeException(String.format("Not enough socks in the storage. Actual count - %s, required count - %s", sock.getCount(), sockDTO.getCount()));
         } else {
             if (sock.getCount() - sockDTO.getCount() == 0) {
