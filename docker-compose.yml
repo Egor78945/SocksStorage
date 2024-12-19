@@ -24,5 +24,6 @@ services:
       - LIQUIBASE_CHANGELOG_AUTHOR=${LIQUIBASE_CHANGELOG_AUTHOR}
     depends_on:
       - postgres
+    restart: on-failure
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
